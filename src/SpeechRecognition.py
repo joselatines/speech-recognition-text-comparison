@@ -29,7 +29,7 @@ class SpeechRecognition:
                     audio = self.recognizer.record(source)
             else:
                 print(
-                    "Format invalid, pleas use this format files: WAV, AIFF, FLAC, and MP3"
+                    "Format invalid, please use this format files: WAV, AIFF, FLAC"
                 )
                 return False
 

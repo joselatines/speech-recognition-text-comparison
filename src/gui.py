@@ -15,7 +15,7 @@ class SpeechGUI:
 
     def __init__(self, master):
         # master -> root
-        self.master = master 
+        self.master = master
         master.title("Speech Recognition and Text Comparison")
 
         self.speech_recognizer = SpeechRecognition()
@@ -51,6 +51,16 @@ class SpeechGUI:
             fg=self.white,
         )
         self.button_recognize_speech_audio_file.pack()
+
+        if self.audio_file_speaking:
+            self.button_reset_audio = tk.Button(
+                master,
+                text="Reset audio file",
+                command=self.reset_audio_file,
+                bg=self.yellow,
+            )
+            self.button_reset_audio.pack()
+            self.master.update()
 
         # Create label widget for output
         self.label_output = tk.Label(master, text="")
@@ -177,6 +187,7 @@ class SpeechGUI:
 
             # Show a success message
             messagebox.showinfo("Success", f"Audio folder set to:\n{audio_path_output}")
+            self.master.update()
         else:
             settings = self.settings
             self.label_output.config(
@@ -187,13 +198,23 @@ class SpeechGUI:
 
     def recognize_speech(self):
         if self.entry_lecture.get():
+            waiting_message = (
+                "🗣️ Listening your audio, please wait"
+                if self.audio_file_speaking
+                else '"🗣️ Listening... Please speak"'
+            )
             while True:
-                self.label_output.config(text="🗣️ Listening... Please speak.")
-                self.master.update()  # update the GUI to show the label change
+                try:
+                    self.label_output.config(text=waiting_message)
+                    self.master.update()  # update the GUI to show the label change
 
-                user_voice_text = self.speech_recognizer.recognize_speech(
-                    self.audio_file_speaking
-                )
+                    user_voice_text = self.speech_recognizer.recognize_speech(
+                        self.audio_file_speaking
+                    )
+                except:
+                    messagebox.showerror(
+                        "Error type", "Please upload a audio file with extension .wav"
+                    )
                 if user_voice_text:
                     self.label_output.config(text="✅ Speech recognized successfully.")
                     self.user_voice_text = user_voice_text
@@ -222,9 +243,14 @@ class SpeechGUI:
                 message="Please enter lecture text and recognize speech first.",
             )
 
+    def reset_audio_file(self):
+        self.audio_file_speaking = None
+        messagebox.showinfo('Audio file', 'Last audio file deleted, speak to the app or update a new one file')
+
+   
     def load_audio_speaking(self):
         # Specify the file types
-        filetypes = (("Audio Files", ".wav .ogg .mp3"), ("All Files", "*.*"))
+        filetypes = (("Audio Files", ".wav .ogg"), ("All Files", "*.*"))
 
         # Show the open file dialog by specifying path
         path = filedialog.askopenfile(filetypes=filetypes)

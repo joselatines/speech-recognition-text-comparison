@@ -1,5 +1,7 @@
 # Speech Recognition and Text Comparison GUI
 
+![App view](phoyo.jpg)
+
 ## List of contents
 1. [Explanations](ProjectExplanations)
 2. [About my project](AboutMyProject)
