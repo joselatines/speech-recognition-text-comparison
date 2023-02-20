@@ -17,6 +17,8 @@ The program also supports multiple languages, including English and Spanish.
 ## About My Project
 As a non-native English speaker, I found it challenging to improve my English pronunciation without having native speakers around me to practice with. So, I decided to create an app to help me with this task.
 
+This program is designed to improve your pronunciation skills by using speech recognition and text comparison. By pasting your lecture text into the provided text box and clicking on the "Recognize Speech" button, the program listens to you as you read the text aloud. It then compares your speech to the text, identifying any pronunciation mistakes you may have made. If you do make a mistake, the program will indicate which words you mispronounced and provide you with an audio file of the correct pronunciation. Additionally, you can also load your own audio file to compare it with the lecture text, and the program supports multiple languages, including English and Spanish.
+
 ## How to use
 
 1.  Clone the repository to your local machine.
