@@ -9,6 +9,16 @@ class SpeechRecognition:
     def __init__(self):
         self.recognizer = sr.Recognizer()
 
+    @staticmethod
+    def write_string_to_file(string, save_path, lecture=False):
+        path = (
+            f"{save_path}/your_lecture.txt"
+            if lecture
+            else f"{save_path}/audio_recognized.txt"
+        )
+        with open(path, "w") as file:
+            file.write(string)
+
     def recognize_speech(self, audio_file=None):
         if audio_file:
             extension = os.path.splitext(audio_file)[1]
@@ -47,7 +57,8 @@ class SpeechRecognition:
                 f"Uh oh! Couldn't request results from Google Speech Recognition service: {e}"
             )
 
-    def clean_string(self, text):
+    @staticmethod
+    def clean_string(text):
         # Remove all characters except letters and numbers using regular expressions
         cleaned_text = re.sub(r"[^a-zA-Z0-9\s]", "", text)
 
@@ -56,7 +67,8 @@ class SpeechRecognition:
 
         return cleaned_text
 
-    def compare_texts(self, voice_text, text_guide):
+    @staticmethod
+    def compare_texts(voice_text, text_guide):
         differ_words = []
 
         # Split the strings into words
