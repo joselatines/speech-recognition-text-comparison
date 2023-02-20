@@ -1,13 +1,13 @@
 # Speech Recognition and Text Comparison GUI
 
 ## List of contents
-[Explanations](SpeechRecognitionandTextComparisonGUI) 
-[About](AboutMyProject) 
-[How to use](Howtouse) 
-[Project files](Filesintheproject) 
-[Requirements](Requirements) 
-[Credits](Credits)
+1. [Explanations](ProjectExplanations)
+2. [About my project](AboutMyProject)
+3. [How to use](Howtouse)
+4. [Requirements](Requirements)
+4. [Credits](Credits)
 
+## Project Explanation
 This program is a GUI application built using Python `tkinter` module, that allows the user to do speech recognition and text comparison. The user is required to paste their lecture text in the text box, and then click on "Recognize Speech" button and read the text. After reading the text, wait for a few seconds of silence to stop listening to the speech, and then the program will show the results.
 
 The user can also load their audio file to compare it with the lecture text by clicking on the "Load your audio file that matches with your lecture" button. The program will create a new folder named "Corrections Audios" in the Documents folder by default to save audio files, but the user can select another folder to save audio files.
