@@ -3,7 +3,7 @@ from tkinter import messagebox, filedialog
 from src.SpeechRecognition import SpeechRecognition
 from src.TextToSpeech import TextToSpeech
 import os
-from pathlib import Path
+from src.utils import create_directory
 import json
 
 
@@ -97,12 +97,6 @@ class SpeechGUI:
         if messagebox.askyesno("Exit", "Are you sure you want to exit?"):
             self.master.destroy()
 
-    @staticmethod
-    def save_settings(settings):
-        # Save the settings to the settings file
-        with open("settings.json", "w") as f:
-            json.dump(settings, f)
-
     def display_instructions(self):
         # Instructions
         instructions = {
@@ -143,37 +137,43 @@ class SpeechGUI:
     def set_spanish_language(self):
         self.language = "es"
         self.display_instructions()
+        
+    @staticmethod
+    def save_settings(settings):
+        # Create Speech Recognizer folder in documents user folder
+        folder_path = os.path.join(os.path.expanduser("~"), "Documents", "Speech Recognizer")
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+        
+        # Save the settings to the settings file
+        settings_file = os.path.join(folder_path, "settings.json")
+        with open(settings_file, "w") as f:
+            json.dump(settings, f)
 
     @staticmethod
     def load_settings():
-        # Load settings from the settings file if it exists
-        settings_file = Path("settings.json")
-        if settings_file.exists():
-            with open(settings_file) as f:
-                settings = json.load(f)
-                return settings
+        """
+        Load the user settings from the settings file.
+        """
+        documents_folder = os.path.expanduser("~/Documents")
+        settings_folder = os.path.join(documents_folder, "Speech Recognizer")
+        settings_file = os.path.join(settings_folder, "settings.json")
 
-        else:
-            # Get the path to the Documents folder
-            documents_path = os.path.expanduser("~/Documents")
+        # Create the settings folder if it doesn't exist
+        create_directory(settings_folder)
 
-            # Create a new folder in the Documents folder
-            new_folder_path = os.path.join(documents_path, "Corrections Audios")
-            os.makedirs(new_folder_path, exist_ok=True)
-
-            # Check if the folder was created
-            if os.path.exists(new_folder_path):
-                print(f"Folder '{new_folder_path}' was created successfully!")
-            else:
-                print(f"Failed to create folder '{new_folder_path}'")
-
-            # Create a new settings file with default values
-            default_settings = {"corrections_audio_path": new_folder_path}
-            print(type(default_settings))
-
+        if not os.path.exists(settings_file):
+            default_settings = {
+                "corrections_audio_path": os.path.join(settings_folder, "Corrections Audios")
+            }
             with open(settings_file, "w") as f:
-                json.dump(default_settings, f)
-            return default_settings
+                json.dump(default_settings, f, indent=4)
+
+        with open(settings_file) as f:
+            settings = json.load(f)
+        return settings
+
+
 
     def select_audio_folder(self):
         # Ask the user for a directory to save files
