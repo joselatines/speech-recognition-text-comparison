@@ -23,6 +23,10 @@ This program is designed to improve your pronunciation skills by using speech re
 
 ## How to use
 
+## Option 1
+1. Just download the dist/build folder and execute the main.exe file
+
+## Option 2
 1.  Clone the repository to your local machine.
 2.  Open the command prompt and navigate to the project directory.
 3.  Install the required modules by running `pip install -r requirements.txt` in the command prompt.
@@ -54,3 +58,5 @@ This program is designed to improve your pronunciation skills by using speech re
 
 ## Credits
 I developed this app on my own, using Python and several speech recognition and text-to-speech libraries. It was entirely a personal project, and no external contributions were made.
+
+Icon file is from [Flat Icon](https://www.flaticon.com/free-icon/linguistics_4459205?term=english+learning&page=1&position=10&origin=search&related_id=4459205) 
