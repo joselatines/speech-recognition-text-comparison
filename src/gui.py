@@ -10,7 +10,7 @@ import json
 class SpeechGUI:
     blue = "#3392FF"
     purple = "#8B1EE5"
-    yellow = "#3392FF"
+    yellow = "#f9ea58"
     white = "#fff"
 
     def __init__(self, master):
@@ -137,6 +137,7 @@ class SpeechGUI:
             settings = json.load(f)
         return settings
 
+    
     def exit_program(self):
         if messagebox.askyesno("Exit", "Are you sure you want to exit?"):
             self.master.destroy()
@@ -169,8 +170,7 @@ class SpeechGUI:
             self.button_load_lecture = tk.Button(
                 master,
                 text="Upload your lecture",
-                bg=self.blue,
-                fg=self.white,
+                bg=self.yellow,
                 command=self.load_lecture_file,
             )
             self.button_load_lecture.pack()
@@ -349,6 +349,8 @@ class SpeechGUI:
                     text=f"🔈 You can listen to the right pronunciations at {save_path}"
                 )
 
+                self.show_results_comparison(text_guide, self.user_voice_text)
+
             else:
                 messagebox.showinfo(
                     title="🥳 Congratulations!",
@@ -372,3 +374,22 @@ class SpeechGUI:
 
         # Display the message using messagebox.showinfo
         messagebox.showinfo("📚 Pronunciation Feedback", message_text)
+
+    def show_results_comparison(self, user_lecture, recognized_voice):
+        path = self.settings['corrections_audio_path']
+        print(f"{path}/lecture_info.txt")
+        # create a new file called "lecture_info.txt" in write mode
+        with open(f"{path}/lecture_info.txt", "w") as f:
+            # write the message and voice_message strings to the file
+            f.write(f"--- Your lecture is --- \n{user_lecture} \n--- Your speaking to text --- \n{recognized_voice} \n")
+        
+        # open the file in read mode and print its contents
+        with open(f"{path}/lecture_info.txt", "r") as f:
+            contents = f.read()
+            print(contents)
+        
+        # close the file to ensure that all data is written to disk
+        f.close()
+
+        # open the file in the user's default text editor
+        os.startfile(f"{path}/lecture_info.txt")
