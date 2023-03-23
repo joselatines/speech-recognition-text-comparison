@@ -178,15 +178,16 @@ class SpeechGUI:
             tk.Label(master, text=self.lecture_file_loaded).pack()
 
     def display_instructions_widget(self):
-        # Instructions
+        # Define instructions for each language
         instructions = {
             "en": {
                 "title": "Instructions",
                 "content": """ 
                 1. Paste your lecture 
                 2. Press Recognize Speech and read the text 
-                3. After read the text make a silence for a few seconds to stop listen to you 
-                4. Wait your results 
+                3. After reading the text, wait a few seconds in silence to stop the tool from listening to you 
+                4. Wait for your results 
+                \n--- TIP ---\n For better results, it is recommended to provide long audio files instead of speaking directly into the microphone, especially for long texts. This is because the transcription quality can be affected by various factors such as background noise, microphone quality, speaking speed, accent, among others. By providing a high-quality and noise-free audio file, the tool will be able to perform a more accurate and complete transcription.
                 """,
             },
             "es": {
@@ -194,17 +195,18 @@ class SpeechGUI:
                 "content": """
                 1. Pega tu lectura 
                 2. Presiona "Recognize Speech" y lee tu texto
-                3. Luego de leer el texto haz silencio para parar de escuchar
+                3. Luego de leer el texto, haz silencio por unos segundos para dejar de escucharte
                 4. Espera los resultados
+                \n--- CONSEJO ---\n Para obtener mejores resultados al usar esta herramienta, se recomienda proporcionar archivos de audio largos en lugar de hablar directamente al micrófono, especialmente para textos largos. Esto se debe a que la calidad de la transcripción puede verse afectada por varios factores, como el ruido de fondo, la calidad del micrófono, la velocidad del habla, el acento, entre otros. Al proporcionar un archivo de audio de alta calidad y libre de ruido, la herramienta podrá realizar una transcripción más precisa y completa.
                 """,
             },
         }
 
+        # Show the instructions for the selected language
         if self.language in instructions:
             messagebox.showinfo(
-                title="None", message=instructions[self.language]["content"]
+                title=instructions[self.language]["title"], message=instructions[self.language]["content"]
             )
-
         else:
             # Handle the case where the selected language is not available
             tk.Label(self.master, text="Selected language is not available.").pack()
