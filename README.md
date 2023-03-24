@@ -1,6 +1,6 @@
 # Speech Recognition and Text Comparison GUI
 
-![App view](public/photo.jpg)
+![App view](/images/teaser.gif)
 
 ## List of contents
 1. [Explanations](ProjectExplanations)
